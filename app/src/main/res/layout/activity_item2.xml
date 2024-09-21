@@ -11,19 +11,20 @@
 
     <TextView
         android:id="@+id/item_list_title_one"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="20dp"
+        android:paddingVertical="10dp"
+        android:text="TextView"
+        android:textSize="25sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/item_list_text"
         android:paddingHorizontal="20dp"
         android:paddingVertical="10dp"
         android:textStyle="bold"
-        android:textSize="30sp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="TextView" />
-
-    <TextView
-        android:id="@+id/item_list_text_one"
-        android:paddingHorizontal="20dp"
-        android:paddingVertical="10dp"
-        android:textSize="17sp"
+        android:textSize="13sp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="TextView" />

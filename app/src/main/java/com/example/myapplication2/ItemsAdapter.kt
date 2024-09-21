@@ -33,8 +33,8 @@ class ItemsAdapter(var items: List<Item>, var context: Context) : RecyclerView.A
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        holder.title.text = items[position].title
-        holder.desc.text = items[position].desc
+        holder.title.text = items[position].name
+        holder.desc.text = items[position].description
         holder.price.text = items[position].price.toString() + "$"
 
         val imageId = context.resources.getIdentifier(
@@ -48,8 +48,8 @@ class ItemsAdapter(var items: List<Item>, var context: Context) : RecyclerView.A
         holder.btn.setOnClickListener{
             val intent = Intent(context, ItemActivity2::class.java)
 
-            intent.putExtra("itemTitle", items[position].title)
-            intent.putExtra("itemText", items[position].text)
+            intent.putExtra("itemTitle", items[position].name)
+            intent.putExtra("itemText", items[position].additionalInfo1)
 
 
             context.startActivity(intent)

@@ -13,10 +13,12 @@ class ItemActivity2 : AppCompatActivity() {
         setContentView(R.layout.activity_item2)
 
         val title: TextView = findViewById(R.id.item_list_title_one)
-        val text: TextView = findViewById(R.id.item_list_text_one)
+        val text: TextView = findViewById(R.id.item_list_text)
+
 
         title.text = intent.getStringExtra("itemTitle")
         title.text = intent.getStringExtra("itemText")
+
 
     }
 }
