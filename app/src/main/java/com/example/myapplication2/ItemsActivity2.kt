@@ -24,14 +24,14 @@ class   ItemsActivity2 : AppCompatActivity() {
         for (i in 0 until jsonArray.length()) {
             val jsonObject = jsonArray.getJSONObject(i)
             val item = Item(
-                jsonObject.getInt("id"),
-                jsonObject.getString("image"),
-                jsonObject.getString("name"),
-                jsonObject.getString("description"),
+                id = jsonObject.getInt("id"),
+                image = jsonObject.getString("image"),
+                name = jsonObject.getString("name"),
+                description = jsonObject.getString("description"),
                 jsonObject.getString("additionalInfo1"),
                 jsonObject.getString("additionalInfo2"),
                 jsonObject.getString("additionalInfo3"),
-                jsonObject.getInt("price")
+                price = jsonObject.getInt("price")
             )
             items.add(item)
         }
