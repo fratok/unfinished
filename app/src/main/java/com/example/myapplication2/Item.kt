@@ -1,5 +1,9 @@
 package com.example.myapplication2
-class Item(
+
+import kotlinx.serialization.Serializable
+
+@Serializable
+data class Item(
     val id: Int,
     val image: String,
     val name: String,
@@ -9,5 +13,10 @@ class Item(
     val additionalInfo3: String,
     val price: Int
 )
+@Serializable
+data class ItemList(
+    val list: List<Item>
+)
+
 
 
