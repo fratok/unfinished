@@ -25,7 +25,6 @@ class DbHelper(val context: Context, val factory: SQLiteDatabase.CursorFactory?)
 
         val db = this.writableDatabase
         db.insert("users", null, values)
-
         db.close()
     }
 
