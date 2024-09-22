@@ -10,11 +10,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
+import com.google.gson.reflect.TypeToken
 import org.json.JSONArray
 import org.json.JSONObject
 
 
-class   ItemsActivity2 : AppCompatActivity() {
+class ItemsActivity2 : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -22,7 +23,8 @@ class   ItemsActivity2 : AppCompatActivity() {
         val itemsList: RecyclerView = findViewById(R.id.itemsList)
         val items = arrayListOf<Item>()
 
-        val jsonString = resources.openRawResource(R.raw.shopping_list).bufferedReader().use { it.readText() }
+        val jsonString =
+            resources.openRawResource(R.raw.shopping_list).bufferedReader().use { it.readText() }
         val jsonArray = JSONArray(jsonString)
 
 //        for (i in 0 until jsonArray.length()) {
@@ -39,10 +41,10 @@ class   ItemsActivity2 : AppCompatActivity() {
 //            )
 //            items.add(item)
 //        }
-        val builder = GsonBuilder().create()
-//        val ggson = builder.fromJson(jsonString, ArrayList<Item>()::class.java)
-        val ggson = builder.fromJson(jsonString, MutableList<Item>::class.java)
-        val itemsAdapter = ItemsAdapter(ggson, context = this)
+
+        val itemList: List<Item> =
+            Gson().fromJson(jsonString, object : TypeToken<List<Item>>() {}.type)
+        val itemsAdapter = ItemsAdapter(itemList, context = this)
 
         itemsList.layoutManager = LinearLayoutManager(this)
         itemsList.adapter = itemsAdapter
