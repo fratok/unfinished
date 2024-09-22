@@ -43,14 +43,13 @@ class ItemsAdapter(private var items: List<Item>, var context: Context) : Recycl
             "drawable",
             context.packageName
         )
-
         holder.image.setImageResource(imageId)
 
         holder.btn.setOnClickListener{
             val intent = Intent(context, ItemActivity2::class.java)
 
-            intent.putExtra("itemTitle", items[position].name)
-            intent.putExtra("itemText", items[position].additionalInfo1)
+            intent.putExtra("itemTitle", items[position].additionalInfo1)
+            intent.putExtra("itemText", items[position].additionalInfo2)
 
 
             context.startActivity(intent)
