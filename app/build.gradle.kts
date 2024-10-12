@@ -1,3 +1,5 @@
+import java.util.regex.Pattern.compile
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
@@ -5,11 +7,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.myapplication2"
+    namespace = "com.example.unfinished"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.myapplication2"
+        applicationId = "com.example.unfinished"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
@@ -61,7 +63,16 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.1")
     implementation ("com.github.bumptech.glide:glide:4.12.0")
     annotationProcessor ("com.github.bumptech.glide:compiler:4.12.0")
+    implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-core:$1.6.4")
+    implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-android:$1.6.4")
+    implementation ("com.squareup.retrofit2:retrofit:$2.9.0")
+    implementation ("com.squareup.retrofit2:converter-gson:$2.9.0")
+    implementation ("com.squareup.okhttp3:okhttp:4.9.1")
 
+    compile ("io.reactivex.rxjava2:rxandroid:2.0.1")
 
+}
+
+fun def(coroutine_version: String) {
 
 }

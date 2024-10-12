@@ -1,4 +1,4 @@
-package com.example.myapplication2
+package com.example.Unfinished
 
 class User(val login: String, val email: String,val pass: String) {
 
