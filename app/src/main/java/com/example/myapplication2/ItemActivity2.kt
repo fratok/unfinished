@@ -1,8 +1,9 @@
-package com.example.Unfinished
+package com.example.myapplication2
 
 import android.os.Bundle
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import com.example.unfinished.R
 
 class ItemActivity2 : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

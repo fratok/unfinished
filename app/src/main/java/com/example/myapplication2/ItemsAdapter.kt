@@ -1,4 +1,4 @@
-package com.example.Unfinished
+package com.example.myapplication2
 
 import android.content.Context
 import android.content.Intent
@@ -10,6 +10,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.unfinished.R
 
 class ItemsAdapter(private var items: List<Item>, var context: Context) : RecyclerView.Adapter<ItemsAdapter.MyViewHolder>(){
 

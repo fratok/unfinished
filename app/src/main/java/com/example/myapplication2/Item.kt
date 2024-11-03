@@ -1,4 +1,4 @@
-package com.example.Unfinished
+package com.example.myapplication2
 
 import android.content.ContentValues.TAG
 import android.os.Bundle
