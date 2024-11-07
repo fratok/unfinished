@@ -1,5 +1,6 @@
 package com.example.myapplication2
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
@@ -10,7 +11,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.unfinished.R
+
+
 
 class ItemsAdapter(private var items: List<Item>, var context: Context) : RecyclerView.Adapter<ItemsAdapter.MyViewHolder>(){
 
@@ -34,6 +36,7 @@ class ItemsAdapter(private var items: List<Item>, var context: Context) : Recycl
         return items.count()
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         holder.title.text = items[position].name
         holder.desc.text = items[position].description

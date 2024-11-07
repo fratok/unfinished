@@ -1,12 +1,10 @@
 package com.example.myapplication2
 
-import android.content.ContentValues.TAG
 import android.os.Bundle
 import kotlinx.serialization.Serializable
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.lifecycleScope
-import com.example.unfinished.R
+
 import kotlinx.coroutines.CoroutineScope
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -14,28 +12,37 @@ import retrofit2.http.GET
 import retrofit2.Response
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-
+import kotlinx.serialization.SerialName
 
 
 @Serializable
 data class Item(
+    @SerialName("id")
     val id: Int,
+    @SerialName("image")
     val image: String,
+    @SerialName("name")
     val name: String,
+    @SerialName("description")
     val description: String,
+    @SerialName("additionalInfo1")
     val additionalInfo1: String,
+    @SerialName("additionalInfo2")
     val additionalInfo2: String,
+    @SerialName("price")
     val price: Int,
+    @SerialName("imageUrl")
     val imageUrl: String
 )
 @Serializable
 data class ItemList(
     val list: List<Item>
 )
+@SerialName("id")
 
 interface ItemApi{
     @GET("/JSON/shopping_list.json")
-    suspend fun getItem(): Response<ItemList>
+    suspend fun getItem(): Response<List<Item>>
 }
 fun retrofitRequest(scope: CoroutineScope, onSuccess: (List<Item>) -> Unit, onFailure: (String) -> Unit) {
     val retrofit = Retrofit.Builder()
@@ -46,51 +53,38 @@ fun retrofitRequest(scope: CoroutineScope, onSuccess: (List<Item>) -> Unit, onFa
     val ItemListApi: ItemApi = retrofit.create(ItemApi::class.java)
     scope.launch(Dispatchers.IO) {
         try {
+            Log.d("TAG", "ItemListApi: $" )
             val response = ItemListApi.getItem()
+            Log.d("TAG", "ItemListApi: $response" )
             if (response.isSuccessful) {
+
                 val itemList = response.body() // получаем тело ответа
                 if (itemList != null) {
-                    Log.d(TAG, "Response body: $itemList")
-                    onSuccess(itemList.list)
+                    Log.d("TAG", "Response body: $itemList")
+                    onSuccess(itemList)
                 } else {
                     onFailure("Response body is null")
                 }
             } else {
-                Log.e(TAG, "Failed: ${response.message()}")
+                Log.e("TAG", "Failed: ${response.message()}")
                 onFailure("Request failed: ${response.message()}")
             }
         } catch (e: Exception) {
-            Log.e(TAG, "Network error: ${e.message}")
+            Log.e("TAG", "Network error: ${e.message}")
             onFailure("Network error: ${e.message}")
         }
     }
 }
 class Main : AppCompatActivity() {
 
-    private val TAG = "MainActivity"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        fetchItems() // Вызов функции для получения элементов
-    }
-
-    private fun fetchItems() {
-        retrofitRequest(lifecycleScope, // Используем lifecycleScope для запуска корутины
-            { items ->
-                // Обработка успешного ответа
-                Log.d(TAG, "Получено ${items.size} элементов.")
-                for (item in items) {
-                    Log.d(TAG, "Item: ${item.name}, Price: ${item.price}")
-                }
-            },
-            { errorMessage ->
-                // Обработка ошибки
-                Log.e(TAG, "Ошибка: $errorMessage")
-            })
     }
 }
+
 
 
 
