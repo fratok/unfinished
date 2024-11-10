@@ -66,15 +66,16 @@ fun retrofitRequest(scope: CoroutineScope, onSuccess: (List<Item>) -> Unit, onFa
                     onFailure("Response body is null")
                 }
             } else {
-                Log.e("TAG", "Failed: ${response.message()}")
-                onFailure("Request failed: ${response.message()}")
+                Log.e("TAG", "Ошибка ответа: ${response.message()}")
+                onFailure("Error: Data could not be retrieved from the server. Please try again later")
             }
         } catch (e: Exception) {
-            Log.e("TAG", "Network error: ${e.message}")
-            onFailure("Network error: ${e.message}")
+            Log.e("TAG", "Ошибка сети: ${e.message}")
+            onFailure("Connection error. Check your internet connection and try again")
+        }
         }
     }
-}
+
 class Main : AppCompatActivity() {
 
 

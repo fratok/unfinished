@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="aimTextSize">40sp</dimen>
+    <dimen name="TextViewPadding">32sp</dimen>
+    <dimen name="taskTextSize">80sp</dimen>
+    <dimen name="smallMargin">8sp</dimen>
+    <dimen name="buttonTextSize">60sp</dimen>
+    <dimen name="tinyMargin">4dp</dimen>
+    <dimen name="dialogStrokeWidth">4dp</dimen>
+    <dimen name="errorDialogTitle1">15sp</dimen>
+    <dimen name="errorDialogTitleTextSize">20sp</dimen>
+    <dimen name="errorDialogTitleTextSizeButton">20sp</dimen>
+    <dimen name="largeMargin">32dp</dimen>
+
+</resources>
