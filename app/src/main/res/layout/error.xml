@@ -30,7 +30,11 @@
         android:text="@string/errorDialogTitle1"
         android:textColor="@color/white"
         android:textSize="@dimen/errorDialogTitleTextSize"
-        android:padding="16dp"/>
+        android:padding="12dp"
+        android:paddingTop="12dp"
+        android:paddingBottom="12dp"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp"/>
 
     <Button
         android:id="@+id/button_understood"

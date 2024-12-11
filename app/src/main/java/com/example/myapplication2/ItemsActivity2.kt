@@ -29,6 +29,7 @@ class   ItemsActivity2 : AppCompatActivity() {
         fetchItems()
     }
 
+
     private fun fetchItems() {
         retrofitRequest(lifecycleScope, // Используем lifecycleScope для запуска корутины
             { items ->

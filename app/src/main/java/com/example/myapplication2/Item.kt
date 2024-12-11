@@ -1,49 +1,21 @@
 package com.example.myapplication2
 
+import ErrorDialogFragment
+import android.app.Dialog
 import android.os.Bundle
-import kotlinx.serialization.Serializable
 import android.util.Log
+import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-
+import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.CoroutineScope
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.http.GET
-import retrofit2.Response
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.serialization.SerialName
 
-
-@Serializable
-data class Item(
-    @SerialName("id")
-    val id: Int,
-    @SerialName("image")
-    val image: String,
-    @SerialName("name")
-    val name: String,
-    @SerialName("description")
-    val description: String,
-    @SerialName("additionalInfo1")
-    val additionalInfo1: String,
-    @SerialName("additionalInfo2")
-    val additionalInfo2: String,
-    @SerialName("price")
-    val price: Int,
-    @SerialName("imageUrl")
-    val imageUrl: String
-)
-@Serializable
-data class ItemList(
-    val list: List<Item>
-)
-@SerialName("id")
-
-interface ItemApi{
-    @GET("/JSON/shopping_list.json")
-    suspend fun getItem(): Response<List<Item>>
-}
 fun retrofitRequest(scope: CoroutineScope, onSuccess: (List<Item>) -> Unit, onFailure: (String) -> Unit) {
     val retrofit = Retrofit.Builder()
         .baseUrl("https://fratok.github.io/")
@@ -53,39 +25,75 @@ fun retrofitRequest(scope: CoroutineScope, onSuccess: (List<Item>) -> Unit, onFa
     val ItemListApi: ItemApi = retrofit.create(ItemApi::class.java)
     scope.launch(Dispatchers.IO) {
         try {
-            Log.d("TAG", "ItemListApi: $" )
-            val response = ItemListApi.getItem()
+            Log.d("TAG", "Запрос на получение элементов")
+            val response = ItemListApi.getItems()
             Log.d("TAG", "ItemListApi: $response" )
             if (response.isSuccessful) {
-
-                val itemList = response.body() // получаем тело ответа
-                if (itemList != null) {
-                    Log.d("TAG", "Response body: $itemList")
-                    onSuccess(itemList)
+                val items = response.body() // получаем тело ответа
+                if (items != null) {
+                    Log.d("TAG", "Response body: $items")
+                    onSuccess(items)
                 } else {
                     onFailure("Response body is null")
                 }
             } else {
                 Log.e("TAG", "Ошибка ответа: ${response.message()}")
-                onFailure("Error: Data could not be retrieved from the server. Please try again later")
+                onFailure("Ошибка: Не удалось получить данные с сервера. Пожалуйста, попробуйте позже.")
             }
         } catch (e: Exception) {
             Log.e("TAG", "Ошибка сети: ${e.message}")
-            onFailure("Connection error. Check your internet connection and try again")
+            onFailure("Ошибка подключения. Проверьте ваше интернет-соединение и попробуйте снова.")
         }
-        }
-    }
-
-class Main : AppCompatActivity() {
-
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-
     }
 }
 
+class Main : AppCompatActivity(), DialogListener {
+
+    private lateinit var loadingIndicator: View
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var adapter: ItemsAdapter
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_items2)
+
+        loadingIndicator = findViewById(R.id.loadingIndicator)
+        recyclerView = findViewById(R.id.itemsList)
+
+        fetchItems()
+    }
+
+    private fun fetchItems() {
+        loadingIndicator.visibility = View.VISIBLE
+        retrofitRequest(lifecycleScope,
+            { items ->
+                runOnUiThread {
+                    loadingIndicator.visibility = View.GONE
+                    val successDialog = ErrorDialogFragment("Данные загружены успешно!")
+                    successDialog.show(supportFragmentManager, "SuccessDialog")
+                    setupRecyclerView(items)
+                }
+            },
+            { errorMessage ->
+                runOnUiThread {
+                    loadingIndicator.visibility = View.GONE
+                    val errorDialog = ErrorDialogFragment(errorMessage)
+                    errorDialog.show(supportFragmentManager, "ErrorDialog")
+                }
+            }
+        )
+    }
+
+    private fun setupRecyclerView(items: List<Item>) {
+        adapter = ItemsAdapter(items, this)
+        recyclerView.adapter = adapter
+        recyclerView.layoutManager = LinearLayoutManager(this)
+    }
+
+    override fun onDialogDismissed() {
+        Toast.makeText(this, "Диалог закрыт", Toast.LENGTH_SHORT).show()
+    }
+}
 
 
 

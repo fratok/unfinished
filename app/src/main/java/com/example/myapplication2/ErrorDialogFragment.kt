@@ -1,10 +1,21 @@
 import android.app.Dialog
+import android.content.Context
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatDialogFragment
+import com.example.myapplication2.DialogListener
 import com.example.myapplication2.R
 class ErrorDialogFragment(private val errorMessage: String) : AppCompatDialogFragment() {
+
+        private var listener: DialogListener? = null
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if (context is DialogListener){
+            listener = context
+        }
+    }
 
         override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
             val dialog = Dialog(requireContext())
@@ -18,9 +29,15 @@ class ErrorDialogFragment(private val errorMessage: String) : AppCompatDialogFra
             titleTextView.text = errorMessage
 
             understoodButton.setOnClickListener {
-                dialog.dismiss()
+                dismiss()
+                listener?.onDialogDismissed()
             }
 
             return dialog
         }
+
+    override fun onDetach() {
+        super.onDetach()
+        listener = null
+    }
     }
