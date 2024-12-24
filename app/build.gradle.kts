@@ -29,6 +29,9 @@ android {
             )
         }
     }
+    buildFeatures{
+        viewBinding = true
+    }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
@@ -57,7 +60,12 @@ dependencies {
     implementation(libs.androidx.constraintlayout)
     implementation(libs.converter.gson)
     implementation(libs.gson)
-    implementation(libs.play.services.base)
+    implementation(libs.androidx.navigation.fragment)
+    implementation(libs.androidx.legacy.support.v4)
+    implementation(libs.androidx.lifecycle.livedata.ktx)
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+    implementation(libs.androidx.viewbinding)
+    implementation(libs.mediation.test.suite)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -70,6 +78,13 @@ dependencies {
     implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
     implementation ("com.squareup.okhttp3:okhttp:4.9.1")
     implementation ("androidx.fragment:fragment-ktx:1.8.5")
+    implementation ("com.google.dagger:dagger-compiler:2.53.1")
+    implementation ("com.google.dagger:dagger:2.53.1")
+    implementation ("com.google.dagger:dagger-compiler:2.53.1")
+    implementation ("com.google.dagger:dagger-android:2.53.1")
+    implementation ("com.google.dagger:dagger-android-support:2.53.1")
+    implementation ("com.google.dagger:dagger-android-processor:2.53.1")
+            //implementation ("org.jetbrains.kotlinx:kotlinx-metadata-jvm:$versions.ktMeta"
 
     compile ("io.reactivex.rxjava2:rxandroid:2.0.1")
 
