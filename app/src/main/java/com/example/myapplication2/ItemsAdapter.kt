@@ -1,8 +1,8 @@
 package com.example.myapplication2
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +10,9 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+
+
 
 class ItemsAdapter(private var items: List<Item>, var context: Context) : RecyclerView.Adapter<ItemsAdapter.MyViewHolder>(){
 
@@ -33,24 +36,24 @@ class ItemsAdapter(private var items: List<Item>, var context: Context) : Recycl
         return items.count()
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         holder.title.text = items[position].name
         holder.desc.text = items[position].description
         holder.price.text = items[position].price.toString() + "$"
 
-        val imageId = context.resources.getIdentifier(
-            items[position].image,
-            "drawable",
-            context.packageName
-        )
+        val imageUrl = items[position].imageUrl
 
-        holder.image.setImageResource(imageId)
+        // Используем Glide для загрузки изображения
+        Glide.with(context)
+            .load(imageUrl)
+            .into(holder.image)
 
         holder.btn.setOnClickListener{
             val intent = Intent(context, ItemActivity2::class.java)
 
-            intent.putExtra("itemTitle", items[position].name)
-            intent.putExtra("itemText", items[position].additionalInfo1)
+            intent.putExtra("itemTitle", items[position].additionalInfo1)
+            intent.putExtra("itemText", items[position].additionalInfo2)
 
 
             context.startActivity(intent)

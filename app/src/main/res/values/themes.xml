@@ -3,7 +3,11 @@
     <style name="Base.Theme.MyApplication2" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        name="CustomAlertDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:windowBackground">@drawable/background_dialog</item>
+
     </style>
 
     <style name="Theme.MyApplication2" parent="Base.Theme.MyApplication2" />
+
 </resources>

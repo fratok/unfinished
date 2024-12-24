@@ -4,7 +4,6 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
-import androidx.lifecycle.ViewModelProvider
 
 class DbHelper(val context: Context, val factory: SQLiteDatabase.CursorFactory?) :
     SQLiteOpenHelper(context, "app", factory, 1) {
