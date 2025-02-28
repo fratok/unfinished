@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:layout_height="match_parent"
     android:background="#927954"
-    tools:context=".ItemActivity2">
+    tools:context=".ItemFragment2">
 
     <TextView
         android:id="@+id/item_list_title_one"
@@ -37,5 +37,11 @@
         android:backgroundTint="#B8421D"
         android:text="Купить"
         android:textColor="#0D0A12" />
+
+    <Button
+        android:id="@+id/back"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Button" />
 
 </LinearLayout>

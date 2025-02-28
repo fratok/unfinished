@@ -1,55 +1,91 @@
 package com.example.myapplication2
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.fragment.findNavController
+import com.example.myapplication2.databinding.ActivityAuthBinding
+import com.example.myapplication2.databinding.ActivityItems2Binding
+import dagger.android.DaggerActivity
+import dagger.android.support.AndroidSupportInjection
+import javax.inject.Inject
 
 
+class AuthFragment : BaseFragment<ActivityAuthBinding>() {
 
-class AuthActivity : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContentView(R.layout.activity_auth)
+    @Inject
+    lateinit var dbHelper: DbHelper
 
-        val userLogin: EditText = findViewById(R.id.user_login_auth)
-        val userPass: EditText = findViewById(R.id.user_pass_auth)
-        val button: Button = findViewById(R.id.button_auth)
-        val linkToReg: TextView = findViewById(R.id.link_to_reg)
+    override fun onAttach(context: Context) {
+        AndroidSupportInjection.inject(this)
+        super.onAttach(context)
+    }
 
-        linkToReg.setOnClickListener{
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
-        }
+    override fun inflateViewBinding(
+        inflater: LayoutInflater,
+        container: ViewGroup?
+    ): ActivityAuthBinding {
+        return ActivityAuthBinding.inflate(inflater, container, false)
+    }
 
-        button.setOnClickListener {
-            val login = userLogin.text.toString().trim()
-            val pass = userPass.text.toString().trim()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+//enableEdgeToEdge()
+        setupViews()
+    }
 
-            if (login == "" || pass == "")
-                Toast.makeText(this, "Не все поля заполнены", Toast.LENGTH_LONG).show()
-            else {
-                val db = DbHelper(this, null)
-                val isAuth = db.getUser(login, pass)
-
-                if (isAuth) {
-                    Toast.makeText(this, "Пользователь $login авторизован", Toast.LENGTH_LONG).show()
-                    userLogin.text.clear()
-                    userPass.text.clear()
-
-                    val intent = Intent(this, ItemsActivity2::class.java)
-                    startActivity(intent)
-                }else
-                    Toast.makeText(this, "Пользователь $login не авторизован или неправильно указаны данные", Toast.LENGTH_LONG).show()
-
-
+    private fun setupViews() {
+        with(binding) {
+            this?.linkToReg?.setOnClickListener {
+                findNavController().navigate(R.id.action_mainActivity_to_itemsActivity2)
             }
 
+            this?.buttonAuth?.setOnClickListener {
+                val login = userLoginAuth.text.toString().trim()
+                val pass = userPassAuth.text.toString().trim()
+
+                when {
+                    login.isEmpty() || pass.isEmpty() ->
+                        showToast("Заполните все поля")
+
+                    dbHelper.getUser(login, pass) -> {
+                        showToast("Авторизация успешна")
+                        clearFields()
+                        navigateToItems()
+                    }
+
+                    else -> showToast("Ошибка авторизации")
+
+                }
+            }
         }
+    }
+
+    private fun clearFields() {
+        with(binding) {
+            this?.userLoginAuth?.text?.clear()
+            this?.userPassAuth?.text?.clear()
+        }
+    }
+
+    private fun navigateToItems() {
+        findNavController().navigate(R.id.action_mainActivity_to_itemsActivity2)
+    }
+
+    private fun showToast(message: String) {
+        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+    }
+
+    companion object {
+        const val TAG = "AuthFragment"
     }
 }

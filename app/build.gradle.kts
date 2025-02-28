@@ -4,6 +4,8 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
     id ("org.jetbrains.kotlin.plugin.serialization")
+
+
 }
 
 android {
@@ -38,6 +40,11 @@ android {
     }
     kotlinOptions {
         jvmTarget = "1.8"
+    }
+    kotlin {
+        sourceSets.all {
+            languageSettings.optIn("kotlin.RequiresOptIn")
+        }
     }
     sourceSets {
         getByName("main") {
@@ -78,12 +85,17 @@ dependencies {
     implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
     implementation ("com.squareup.okhttp3:okhttp:4.9.1")
     implementation ("androidx.fragment:fragment-ktx:1.8.5")
-    implementation ("com.google.dagger:dagger-compiler:2.53.1")
-    implementation ("com.google.dagger:dagger:2.53.1")
-    implementation ("com.google.dagger:dagger-compiler:2.53.1")
-    implementation ("com.google.dagger:dagger-android:2.53.1")
-    implementation ("com.google.dagger:dagger-android-support:2.53.1")
-    implementation ("com.google.dagger:dagger-android-processor:2.53.1")
+    implementation("com.google.dagger:dagger:2.53")
+    implementation("com.google.dagger:dagger-android:2.53")
+    implementation("com.google.dagger:dagger-android-support:2.53")
+    implementation ("com.google.dagger:dagger-android-processor:2.53")
+    implementation ("androidx.navigation:navigation-fragment:2.8.6")
+    implementation ("androidx.navigation:navigation-ui:2.8.6")
+    implementation ("androidx.fragment:fragment-ktx:1.6.2")
+    annotationProcessor ("com.google.dagger:dagger-compiler:2.53")
+    annotationProcessor ("com.google.dagger:dagger-android-processor:2.53")
+
+
             //implementation ("org.jetbrains.kotlinx:kotlinx-metadata-jvm:$versions.ktMeta"
 
     compile ("io.reactivex.rxjava2:rxandroid:2.0.1")

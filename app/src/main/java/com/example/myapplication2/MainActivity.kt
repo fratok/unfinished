@@ -2,19 +2,27 @@ package com.example.myapplication2
 
 import android.content.Intent
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.findNavController
+import androidx.navigation.ui.setupActionBarWithNavController
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat.startActivity
+import androidx.navigation.ui.NavigationUI.setupActionBarWithNavController
+import dagger.android.DaggerActivity
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : DaggerActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContentView(R.layout.activity_main)
+
+        //setupActionBarWithNavController(findNavController(R.id.nav_host_fragment))
+
+
 
         val userLogin: EditText = findViewById(R.id.user_login)
         val userEmail: EditText = findViewById(R.id.user_email)
@@ -23,7 +31,7 @@ class MainActivity : AppCompatActivity() {
         val linkToAuth: TextView = findViewById(R.id.link_to_auth)
 
         linkToAuth.setOnClickListener {
-            val intent = Intent(this, AuthActivity::class.java)
+            val intent = Intent(this, AuthFragment::class.java)
             startActivity(intent)
         }
             button.setOnClickListener {
@@ -46,4 +54,8 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
-    }
+//    override fun onSupportNavigateUp(): Boolean {
+//        val navController = findNavController(R.id.nav_host_fragment)
+//        return navController.navigateUp() || super.onSupportNavigateUp()
+  //  }
+}

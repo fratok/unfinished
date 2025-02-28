@@ -3,20 +3,46 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/testFragment">
+    app:startDestination="@id/mainActivity">
+    <activity
+        android:id="@+id/mainActivity"
+        android:name="com.example.myapplication2.MainActivity"
+        android:label="activity_main"
+        tools:layout="@layout/activity_main">
+        <action
+            android:id="@+id/action_mainActivity_to_authActivity"
+            app:destination="@id/authActivity" />
+    </activity>
 
     <fragment
-        android:id="@+id/testFragment"
-        android:name="com.example.myapplication2.TestFragment"
-        android:label="fragment_test"
-        tools:layout="@layout/fragment_test" >
-        <action
-            android:id="@+id/action_testFragment_to_test2Fragment"
-            app:destination="@id/test2Fragment" />
+        android:id="@+id/authActivity"
+        android:name="com.example.myapplication2.AuthFragment"
+        android:label="activity_auth"
+        tools:layout="@layout/activity_auth">
+    <action
+            android:id="@+id/action_mainActivity_to_itemsActivity2"
+            app:destination="@id/itemsActivity2" />
     </fragment>
+
     <fragment
-        android:id="@+id/test2Fragment"
-        android:name="com.example.myapplication2.Test2Fragment"
-        android:label="fragment_test2"
-        tools:layout="@layout/fragment_test2" />
+        android:id="@+id/itemsActivity2"
+        android:name="com.example.myapplication2.ItemsFragment2"
+        android:label="activity_items2"
+        tools:layout="@layout/activity_items2">
+    <action
+        android:id="@+id/action_mainActivity_to_itemActivity2"
+        app:destination="@id/itemActivity2" />
+</fragment>
+
+    <fragment
+        android:id="@+id/itemActivity2"
+        android:name="com.example.myapplication2.ItemFragment2"
+        android:label="activity_item2"
+        tools:layout="@layout/activity_item2">
+    <action
+        android:id="@+id/action_itemActivity2_to_itemsActivity2"
+        app:destination="@id/itemsActivity2" />
+    </fragment>
 </navigation>
+
+

@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.viewbinding.ViewBinding
-import com.google.android.ads.mediationtestsuite.viewmodels.ViewModelFactory
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 

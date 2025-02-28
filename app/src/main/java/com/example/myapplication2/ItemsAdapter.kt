@@ -50,7 +50,7 @@ class ItemsAdapter(private var items: List<Item>, var context: Context) : Recycl
             .into(holder.image)
 
         holder.btn.setOnClickListener{
-            val intent = Intent(context, ItemActivity2::class.java)
+            val intent = Intent(context, ItemsFragment2::class.java)
 
             intent.putExtra("itemTitle", items[position].additionalInfo1)
             intent.putExtra("itemText", items[position].additionalInfo2)

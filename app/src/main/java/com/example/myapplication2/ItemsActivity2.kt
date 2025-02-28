@@ -4,58 +4,83 @@ package com.example.myapplication2
 import ErrorDialogFragment
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.myapplication2.databinding.ActivityItems2Binding
+import dagger.android.AndroidInjection
+import dagger.android.AndroidInjector
+import dagger.android.DaggerActivity
+import dagger.android.support.AndroidSupportInjection
+import dagger.android.support.AndroidSupportInjectionModule
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 
-class   ItemsActivity2 : AppCompatActivity() {
-    var itemList = mutableListOf<Item>()
-    var itemsAdapter = ItemsAdapter(itemList, context = this)
-    private lateinit var itemsList: RecyclerView
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContentView(R.layout.activity_items2)
+class ItemsFragment2 : BaseFragment<ActivityItems2Binding>() {
+    @Inject
+    lateinit var itemApi: ItemApi
 
-        itemsList = findViewById(R.id.itemsList)
-        itemsList.layoutManager = LinearLayoutManager(this)
-        itemsList.adapter = itemsAdapter
-        itemsAdapter = ItemsAdapter(itemList, context = this)
+    private lateinit var itemsAdapter: ItemsAdapter
+    private var itemList = mutableListOf<Item>()
+
+    override fun inflateViewBinding(
+        inflater: LayoutInflater,
+        container: ViewGroup?
+    ): ActivityItems2Binding {
+        return ActivityItems2Binding.inflate(inflater, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
+        AndroidSupportInjection.inject(this)
+        super.onViewCreated(view, savedInstanceState)
+
+
+        setupRecyclerView()
         fetchItems()
+    }
+
+    private fun setupRecyclerView() {
+        itemsAdapter = ItemsAdapter(itemList, requireContext())
+        binding?.itemsList?.apply {
+            layoutManager = LinearLayoutManager(requireContext())
+            adapter = itemsAdapter
+        }
     }
 
 
     private fun fetchItems() {
-        retrofitRequest(lifecycleScope, // Используем lifecycleScope для запуска корутины
-            { items ->
-                lifecycleScope.launch(Dispatchers.Main) {
-                    itemList.clear()
-                    itemList.addAll(items)
-                    itemsAdapter = ItemsAdapter(itemList, context = this@ItemsActivity2)
-                    itemsList.adapter = itemsAdapter
-
-                    // Обработка успешного ответа
-                    Log.d(TAG, "Получено ${items.size} элементов.")
-                    for (item in items) {
-                        Log.d(TAG, "Item: ${item.name}, Price: ${item.price}")
-                    }
-                }
-            },
-            { errorMessage ->
-                lifecycleScope.launch(Dispatchers.Main) {
-
-                    // Обработка ошибки
-                    Log.e(TAG, "Ошибка: $errorMessage")
-                    val errorDialog = ErrorDialogFragment(errorMessage)
-                    errorDialog.show(supportFragmentManager, "ErrorDialog")
-                }
-            }
-        )
+//        retrofitRequest(
+//           scope =  viewLifecycleOwner.lifecycleScope,
+//            itemApi = itemApi,
+//            onSuccess = { items ->
+//                lifecycleScope.launch(Dispatchers.Main) {
+//                   itemList.clear()
+//                    itemList.addAll(items)
+//                    itemsAdapter.notifyDataSetChanged()
+//                    Log.d(TAG, "Получено ${items.size} элементов.")
+//
+//                    for (item in items) {
+//                        Log.d(TAG, "Item: ${item.name}, Price: ${item.price}")
+//                   }
+//                }
+//           },
+//            onFailure = { errorMessage ->
+////                lifecycleScope.launch(Dispatchers.Main) {
+////                    Log.e(TAG, "Ошибка: $errorMessage")
+////                    val errorDialog = ErrorDialogFragment(errorMessage)
+////                    ErrorDialogFragment(errorMessage).show(supportFragmentManager, "ErrorDialog")
+////               }
+////            }
+////       )
+////    }
     }
 
     companion object {
