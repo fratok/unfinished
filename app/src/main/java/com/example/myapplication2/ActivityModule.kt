@@ -7,18 +7,17 @@ import dagger.android.ContributesAndroidInjector
 
 @Module
 abstract class ActivityModule {
-    @ContributesAndroidInjector
-    abstract fun contributeMainActivity(): MainActivity
+//    @ContributesAndroidInjector
+//    abstract fun contributeMainActivity(): MainActivity
 
     @ContributesAndroidInjector
     abstract fun contributeTestFragment(): TestFragment
 
-    @ContributesAndroidInjector
-    abstract fun contributeItemsFragment2(): ItemsFragment2
+//    @ContributesAndroidInjector
+//    abstract fun contributeItemsFragment2(): ItemsFragment2
 
-    @ContributesAndroidInjector
-    abstract fun contributeAuthFragment(): AuthFragment
-
+//    @ContributesAndroidInjector
+//    abstract fun contributeAuthFragment(): AuthFragment
 
     @Binds
     abstract fun bindsTestViewModule(viewModel: TestViewModel)  : ViewModel

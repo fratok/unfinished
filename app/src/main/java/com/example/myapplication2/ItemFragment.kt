@@ -4,12 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.findNavController
 import com.example.myapplication2.databinding.ActivityItem2Binding
-import com.example.myapplication2.databinding.FragmentTestBinding
-import dagger.android.DaggerActivity
 
 
 class  ItemFragment2 : BaseFragment<ActivityItem2Binding>() {

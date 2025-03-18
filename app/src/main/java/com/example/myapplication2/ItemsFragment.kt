@@ -1,27 +1,14 @@
 package com.example.myapplication2
 
 
-import ErrorDialogFragment
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication2.databinding.ActivityItems2Binding
-import dagger.android.AndroidInjection
-import dagger.android.AndroidInjector
-import dagger.android.DaggerActivity
 import dagger.android.support.AndroidSupportInjection
-import dagger.android.support.AndroidSupportInjectionModule
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import javax.inject.Inject
-
 
 class ItemsFragment2 : BaseFragment<ActivityItems2Binding>() {
     @Inject
@@ -48,12 +35,11 @@ class ItemsFragment2 : BaseFragment<ActivityItems2Binding>() {
 
     private fun setupRecyclerView() {
         itemsAdapter = ItemsAdapter(itemList, requireContext())
-        binding?.itemsList?.apply {
+        binding.itemsList.apply {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = itemsAdapter
         }
     }
-
 
     private fun fetchItems() {
 //        retrofitRequest(
