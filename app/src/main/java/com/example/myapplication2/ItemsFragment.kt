@@ -11,8 +11,8 @@ import dagger.android.support.AndroidSupportInjection
 import javax.inject.Inject
 
 class ItemsFragment2 : BaseFragment<ActivityItems2Binding>() {
-    @Inject
-    lateinit var itemApi: ItemApi
+//    @set:Inject
+//    lateinit var itemApi: ItemApi
 
     private lateinit var itemsAdapter: ItemsAdapter
     private var itemList = mutableListOf<Item>()

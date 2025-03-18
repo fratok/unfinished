@@ -11,7 +11,7 @@ import javax.inject.Inject
 
 abstract class BaseFragment<T: ViewBinding> : DaggerFragment() {
     @Inject
-    protected open lateinit var viewModelFactory: ViewModelProvider.Factory
+    lateinit var viewModelFactory: ViewModelFactory
     private var _binding: T? = null
     protected val binding: T
         get() = _binding ?: throw IllegalStateException(

@@ -22,8 +22,8 @@ import javax.inject.Inject
 
 class AuthFragment : BaseFragment<ActivityAuthBinding>() {
 
-    @Inject
-    lateinit var dbHelper: DbHelper
+//    @set:Inject
+//    lateinit var dbHelper: DbHelper
 
     override fun onAttach(context: Context) {
         AndroidSupportInjection.inject(this)
@@ -52,11 +52,11 @@ class AuthFragment : BaseFragment<ActivityAuthBinding>() {
                     login.isEmpty() || pass.isEmpty() ->
                         showToast("Заполните все поля")
 
-                    dbHelper.getUser(login, pass) -> {
-                        showToast("Авторизация успешна")
-                        clearFields()
-                        navigateToItems()
-                    }
+//                    dbHelper.getUser(login, pass) -> {
+//                        showToast("Авторизация успешна")
+//                        clearFields()
+//                        navigateToItems()
+//                    }
 
                     else -> showToast("Ошибка авторизации")
 

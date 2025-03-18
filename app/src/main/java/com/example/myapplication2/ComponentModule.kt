@@ -1,7 +1,5 @@
 package com.example.myapplication2
 
-import android.app.Application
-import android.content.Context
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit
@@ -10,7 +8,6 @@ import javax.inject.Singleton
 
 @Module
 class ComponentModule {
-
 
     @Provides
     @Singleton
