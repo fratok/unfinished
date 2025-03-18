@@ -10,38 +10,38 @@
         android:label="activity_main"
         tools:layout="@layout/activity_main">
         <action
-            android:id="@+id/action_mainActivity_to_authActivity"
-            app:destination="@id/authActivity" />
+            android:id="@+id/action_mainActivity_to_authFragment"
+            app:destination="@id/authFragment" />
     </activity>
 
     <fragment
-        android:id="@+id/authActivity"
+        android:id="@+id/authFragment"
         android:name="com.example.myapplication2.AuthFragment"
-        android:label="activity_auth"
+        android:label="authFragment"
         tools:layout="@layout/activity_auth">
     <action
             android:id="@+id/action_mainActivity_to_itemsActivity2"
-            app:destination="@id/itemsActivity2" />
+            app:destination="@id/itemsFragment2" />
     </fragment>
 
     <fragment
-        android:id="@+id/itemsActivity2"
+        android:id="@+id/itemsFragment2"
         android:name="com.example.myapplication2.ItemsFragment2"
         android:label="activity_items2"
         tools:layout="@layout/activity_items2">
     <action
         android:id="@+id/action_mainActivity_to_itemActivity2"
-        app:destination="@id/itemActivity2" />
+        app:destination="@id/itemFragment2" />
 </fragment>
 
     <fragment
-        android:id="@+id/itemActivity2"
+        android:id="@+id/itemFragment2"
         android:name="com.example.myapplication2.ItemFragment2"
         android:label="activity_item2"
         tools:layout="@layout/activity_item2">
     <action
         android:id="@+id/action_itemActivity2_to_itemsActivity2"
-        app:destination="@id/itemsActivity2" />
+        app:destination="@id/itemsFragment2" />
     </fragment>
 </navigation>
 

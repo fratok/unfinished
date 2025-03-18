@@ -30,26 +30,21 @@ class AuthFragment : BaseFragment<ActivityAuthBinding>() {
         super.onAttach(context)
     }
 
-    override fun inflateViewBinding(
-        inflater: LayoutInflater,
-        container: ViewGroup?
-    ): ActivityAuthBinding {
-        return ActivityAuthBinding.inflate(inflater, container, false)
-    }
+    override fun inflateViewBinding( inflater: LayoutInflater, container: ViewGroup?
+    ): ActivityAuthBinding = ActivityAuthBinding.inflate(inflater, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//enableEdgeToEdge()
         setupViews()
     }
 
     private fun setupViews() {
         with(binding) {
-            this?.linkToReg?.setOnClickListener {
+            linkToReg.setOnClickListener {
                 findNavController().navigate(R.id.action_mainActivity_to_itemsActivity2)
             }
 
-            this?.buttonAuth?.setOnClickListener {
+            this.buttonAuth.setOnClickListener {
                 val login = userLoginAuth.text.toString().trim()
                 val pass = userPassAuth.text.toString().trim()
 
@@ -72,8 +67,8 @@ class AuthFragment : BaseFragment<ActivityAuthBinding>() {
 
     private fun clearFields() {
         with(binding) {
-            this?.userLoginAuth?.text?.clear()
-            this?.userPassAuth?.text?.clear()
+            this.userLoginAuth.text?.clear()
+            this.userPassAuth.text?.clear()
         }
     }
 

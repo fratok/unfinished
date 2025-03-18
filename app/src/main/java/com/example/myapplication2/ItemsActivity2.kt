@@ -33,9 +33,8 @@ class ItemsFragment2 : BaseFragment<ActivityItems2Binding>() {
     override fun inflateViewBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
-    ): ActivityItems2Binding {
-        return ActivityItems2Binding.inflate(inflater, container, false)
-    }
+    ): ActivityItems2Binding = ActivityItems2Binding.inflate(inflater, container, false)
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 

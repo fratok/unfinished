@@ -15,8 +15,23 @@ import dagger.android.DaggerActivity
 class  ItemFragment2 : BaseFragment<ActivityItem2Binding>() {
 
 
+    override fun inflateViewBinding(
+        inflater: LayoutInflater,
+        container: ViewGroup?
+    ): ActivityItem2Binding = ActivityItem2Binding.inflate(inflater, container, false)
 
-    //    override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.itemListTitleOne.text = "itemTitle"
+        binding.itemListTitleOne.text = "itemText"
+        binding.back.setOnClickListener { findNavController().popBackStack() }
+
+
+    }
+}
+
+
+//    override fun onCreate(savedInstanceState: Bundle?) {
 //        super.onCreate(savedInstanceState)
 //        setContentView(R.layout.activity_item2)
 //
@@ -27,19 +42,4 @@ class  ItemFragment2 : BaseFragment<ActivityItem2Binding>() {
 //        title.text = intent.getStringExtra("itemTitle")
 //        text.text = intent.getStringExtra("itemText")
 //    }
-    override fun inflateViewBinding(
-        inflater: LayoutInflater,
-        container: ViewGroup?
-    ): ActivityItem2Binding = ActivityItem2Binding.inflate(inflater, container, false)
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        binding?.itemListTitleOne?.text = "itemTitle"
-        binding?.itemListTitleOne?.text = "itemText"
-        binding?.back?.setOnClickListener { findNavController().popBackStack() }
-
-
-    }
-}
-
 

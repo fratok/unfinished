@@ -4,15 +4,19 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProvider
 import androidx.viewbinding.ViewBinding
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 
 abstract class BaseFragment<T: ViewBinding> : DaggerFragment() {
     @Inject
-    lateinit var viewModelFactory : ViewModelFactory
+    protected open lateinit var viewModelFactory: ViewModelProvider.Factory
     private var _binding: T? = null
-    val binding = _binding
+    protected val binding: T
+        get() = _binding ?: throw IllegalStateException(
+            "Binding не доступен. Обращение происходит вне жизненного цикла View"
+        )
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
