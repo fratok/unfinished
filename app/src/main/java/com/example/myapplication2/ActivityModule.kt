@@ -16,12 +16,12 @@ abstract class ActivityModule {
     abstract fun contributeTestFragment(): TestFragment
 
     @ContributesAndroidInjector
-    abstract fun contributeItemsFragment2(): ItemsFragment2
+    abstract fun contributeItemsFragment(): ItemsFragment
 
     @ContributesAndroidInjector
-    abstract fun contributeItemFragment2(): ItemFragment2
+    abstract fun contributeItemFragment(): ItemFragment
 
-    //
+
     @ContributesAndroidInjector
     abstract fun contributeAuthFragment(): AuthFragment
 

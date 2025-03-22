@@ -26,7 +26,7 @@
 
     <fragment
         android:id="@+id/itemsFragment2"
-        android:name="com.example.myapplication2.ItemsFragment2"
+        android:name="com.example.myapplication2.ItemsFragment"
         android:label="activity_items2"
         tools:layout="@layout/activity_items2">
     <action
@@ -36,7 +36,7 @@
 
     <fragment
         android:id="@+id/itemFragment2"
-        android:name="com.example.myapplication2.ItemFragment2"
+        android:name="com.example.myapplication2.ItemFragment"
         android:label="activity_item2"
         tools:layout="@layout/activity_item2">
     <action

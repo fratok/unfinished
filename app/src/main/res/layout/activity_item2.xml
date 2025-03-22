@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:layout_height="match_parent"
     android:background="#927954"
-    tools:context=".ItemFragment2">
+    tools:context=".ItemFragment">
 
     <TextView
         android:id="@+id/item_list_title_one"

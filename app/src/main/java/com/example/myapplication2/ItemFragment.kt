@@ -8,7 +8,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.myapplication2.databinding.ActivityItem2Binding
 
 
-class  ItemFragment2 : BaseFragment<ActivityItem2Binding>() {
+class  ItemFragment : BaseFragment<ActivityItem2Binding>() {
 
 
     override fun inflateViewBinding(

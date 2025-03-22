@@ -10,7 +10,7 @@ import com.example.myapplication2.databinding.ActivityItems2Binding
 import dagger.android.support.AndroidSupportInjection
 import javax.inject.Inject
 
-class ItemsFragment2 : BaseFragment<ActivityItems2Binding>() {
+class ItemsFragment : BaseFragment<ActivityItems2Binding>() {
 //    @set:Inject
 //    lateinit var itemApi: ItemApi
 
