@@ -5,16 +5,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
-import com.example.myapplication2.databinding.ActivityItem2Binding
+import com.example.myapplication2.databinding.FragmentItem2Binding
 
 
-class  ItemFragment : BaseFragment<ActivityItem2Binding>() {
+class  ItemFragment : BaseFragment<FragmentItem2Binding>() {
 
 
     override fun inflateViewBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
-    ): ActivityItem2Binding = ActivityItem2Binding.inflate(inflater, container, false)
+    ): FragmentItem2Binding = FragmentItem2Binding.inflate(inflater, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

@@ -13,17 +13,18 @@ import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.findNavController
-import com.example.myapplication2.databinding.ActivityAuthBinding
-import com.example.myapplication2.databinding.ActivityItems2Binding
+import com.example.myapplication2.databinding.FragmentItems2Binding
+import com.example.myapplication2.databinding.FragmentAuthBinding
 import dagger.android.DaggerActivity
 import dagger.android.support.AndroidSupportInjection
 import javax.inject.Inject
 
 
-class AuthFragment : BaseFragment<ActivityAuthBinding>() {
+class AuthFragment : BaseFragment<FragmentAuthBinding>() {
 
-//    @set:Inject
-//    lateinit var dbHelper: DbHelper
+    @set:Inject
+    lateinit var dbHelper: DbHelper
+
 
     override fun onAttach(context: Context) {
         AndroidSupportInjection.inject(this)
@@ -31,7 +32,7 @@ class AuthFragment : BaseFragment<ActivityAuthBinding>() {
     }
 
     override fun inflateViewBinding( inflater: LayoutInflater, container: ViewGroup?
-    ): ActivityAuthBinding = ActivityAuthBinding.inflate(inflater, container, false)
+    ): FragmentAuthBinding = FragmentAuthBinding.inflate(inflater, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -52,11 +53,11 @@ class AuthFragment : BaseFragment<ActivityAuthBinding>() {
                     login.isEmpty() || pass.isEmpty() ->
                         showToast("Заполните все поля")
 
-//                    dbHelper.getUser(login, pass) -> {
-//                        showToast("Авторизация успешна")
-//                        clearFields()
-//                        navigateToItems()
-//                    }
+                    dbHelper.getUser(login, pass) -> {
+                        showToast("Авторизация успешна")
+                        clearFields()
+                        navigateToItems()
+                    }
 
                     else -> showToast("Ошибка авторизации")
 

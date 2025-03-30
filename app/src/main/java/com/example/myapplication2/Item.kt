@@ -1,23 +1,12 @@
 package com.example.myapplication2
 
-import ErrorDialogFragment
-import android.app.Dialog
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dagger.android.AndroidInjection
-import dagger.android.AndroidInjector
 import dagger.android.DaggerActivity
-import kotlinx.coroutines.CoroutineScope
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 //fun retrofitRequest(scope: CoroutineScope, itemApi: ItemApi,  onSuccess: (List<Item>) -> Unit, onFailure: (String) -> Unit,) {
 //    scope.launch(Dispatchers.IO){
@@ -58,7 +47,7 @@ class Main : DaggerActivity(), DialogListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_items2)
+        setContentView(R.layout.fragment_items2)
 
         loadingIndicator = findViewById(R.id.loadingIndicator)
         recyclerView = findViewById(R.id.itemsList)

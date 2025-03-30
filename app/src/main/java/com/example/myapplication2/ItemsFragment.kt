@@ -6,13 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.myapplication2.databinding.ActivityItems2Binding
+import com.example.myapplication2.databinding.FragmentItems2Binding
 import dagger.android.support.AndroidSupportInjection
 import javax.inject.Inject
 
-class ItemsFragment : BaseFragment<ActivityItems2Binding>() {
-//    @set:Inject
-//    lateinit var itemApi: ItemApi
+class ItemsFragment : BaseFragment<FragmentItems2Binding>() {
+    @set:Inject
+    lateinit var itemApi: ItemApi
 
     private lateinit var itemsAdapter: ItemsAdapter
     private var itemList = mutableListOf<Item>()
@@ -20,7 +20,7 @@ class ItemsFragment : BaseFragment<ActivityItems2Binding>() {
     override fun inflateViewBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
-    ): ActivityItems2Binding = ActivityItems2Binding.inflate(inflater, container, false)
+    ): FragmentItems2Binding = FragmentItems2Binding.inflate(inflater, container, false)
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

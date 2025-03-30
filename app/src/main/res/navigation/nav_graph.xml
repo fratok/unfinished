@@ -3,22 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/mainActivity">
-    <activity
-        android:id="@+id/mainActivity"
-        android:name="com.example.myapplication2.MainActivity"
-        android:label="activity_main"
-        tools:layout="@layout/activity_main">
-        <action
-            android:id="@+id/action_mainActivity_to_authFragment"
-            app:destination="@id/authFragment" />
-    </activity>
+    app:startDestination="@id/authFragment">
 
     <fragment
         android:id="@+id/authFragment"
         android:name="com.example.myapplication2.AuthFragment"
         android:label="authFragment"
-        tools:layout="@layout/activity_auth">
+        tools:layout="@layout/fragment_auth">
     <action
             android:id="@+id/action_mainActivity_to_itemsActivity2"
             app:destination="@id/itemsFragment2" />
@@ -28,7 +19,7 @@
         android:id="@+id/itemsFragment2"
         android:name="com.example.myapplication2.ItemsFragment"
         android:label="activity_items2"
-        tools:layout="@layout/activity_items2">
+        tools:layout="@layout/fragment_items2">
     <action
         android:id="@+id/action_mainActivity_to_itemActivity2"
         app:destination="@id/itemFragment2" />
@@ -38,7 +29,7 @@
         android:id="@+id/itemFragment2"
         android:name="com.example.myapplication2.ItemFragment"
         android:label="activity_item2"
-        tools:layout="@layout/activity_item2">
+        tools:layout="@layout/fragment_item2">
     <action
         android:id="@+id/action_itemActivity2_to_itemsActivity2"
         app:destination="@id/itemsFragment2" />
