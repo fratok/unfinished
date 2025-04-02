@@ -9,8 +9,8 @@ import dagger.multibindings.IntoMap
 
 @Module
 abstract class ActivityModule {
-//    @ContributesAndroidInjector
-//    abstract fun contributeMainActivity(): MainActivity
+    @ContributesAndroidInjector
+    abstract fun contributeMainActivity(): MainActivity
 
     @ContributesAndroidInjector
     abstract fun contributeTestFragment(): TestFragment

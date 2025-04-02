@@ -11,7 +11,7 @@
         android:label="authFragment"
         tools:layout="@layout/fragment_auth">
     <action
-            android:id="@+id/action_mainActivity_to_itemsActivity2"
+            android:id="@+id/action_authFragment_to_itemsFragment2"
             app:destination="@id/itemsFragment2" />
     </fragment>
 
@@ -21,7 +21,7 @@
         android:label="activity_items2"
         tools:layout="@layout/fragment_items2">
     <action
-        android:id="@+id/action_mainActivity_to_itemActivity2"
+        android:id="@+id/action_itemsFragment2_to_itemFragment2"
         app:destination="@id/itemFragment2" />
 </fragment>
 
@@ -31,7 +31,7 @@
         android:label="activity_item2"
         tools:layout="@layout/fragment_item2">
     <action
-        android:id="@+id/action_itemActivity2_to_itemsActivity2"
+        android:id="@+id/action_itemsFragment2_to_itemFragment2"
         app:destination="@id/itemsFragment2" />
     </fragment>
 </navigation>

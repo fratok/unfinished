@@ -1,19 +1,23 @@
 package com.example.myapplication2
 
 
+import ErrorDialogFragment
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myapplication2.databinding.FragmentItems2Binding
 import dagger.android.support.AndroidSupportInjection
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class ItemsFragment : BaseFragment<FragmentItems2Binding>() {
     @set:Inject
-    lateinit var itemApi: ItemApi
-
+    lateinit var itemsRepository: ItemsRepository
     private lateinit var itemsAdapter: ItemsAdapter
     private var itemList = mutableListOf<Item>()
 
@@ -27,14 +31,25 @@ class ItemsFragment : BaseFragment<FragmentItems2Binding>() {
 
         AndroidSupportInjection.inject(this)
         super.onViewCreated(view, savedInstanceState)
-
-
         setupRecyclerView()
         fetchItems()
     }
 
     private fun setupRecyclerView() {
-        itemsAdapter = ItemsAdapter(itemList, requireContext())
+        itemsAdapter = ItemsAdapter(
+            items = itemList,
+            onItemClick = { item ->
+                findNavController().navigate(
+                    R.id.action_itemsFragment2_to_itemFragment2,
+                    Bundle().apply {
+                        putInt("itemId", item.id)
+                        putString("itemTitle", item.name)
+                        putString("itemText", item.description)
+                    }
+                )
+            },
+            context = requireContext()
+        )
         binding.itemsList.apply {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = itemsAdapter
@@ -42,33 +57,19 @@ class ItemsFragment : BaseFragment<FragmentItems2Binding>() {
     }
 
     private fun fetchItems() {
-//        retrofitRequest(
-//           scope =  viewLifecycleOwner.lifecycleScope,
-//            itemApi = itemApi,
-//            onSuccess = { items ->
-//                lifecycleScope.launch(Dispatchers.Main) {
-//                   itemList.clear()
-//                    itemList.addAll(items)
-//                    itemsAdapter.notifyDataSetChanged()
-//                    Log.d(TAG, "Получено ${items.size} элементов.")
-//
-//                    for (item in items) {
-//                        Log.d(TAG, "Item: ${item.name}, Price: ${item.price}")
-//                   }
-//                }
-//           },
-//            onFailure = { errorMessage ->
-////                lifecycleScope.launch(Dispatchers.Main) {
-////                    Log.e(TAG, "Ошибка: $errorMessage")
-////                    val errorDialog = ErrorDialogFragment(errorMessage)
-////                    ErrorDialogFragment(errorMessage).show(supportFragmentManager, "ErrorDialog")
-////               }
-////            }
-////       )
-////    }
-    }
-
-    companion object {
-        const val TAG = "ItemsActivity2"
+        lifecycleScope.launch {
+            try {
+                val items = itemsRepository.getItems()
+                itemList.clear()
+                itemList.addAll(items)
+                itemsAdapter.notifyDataSetChanged()
+            } catch (e: Exception) {
+                ErrorDialogFragment(e.message ?: "Неизвестная ошибка")
+                .show(parentFragmentManager, "ErrordialogTitle")
+            }
+        }
     }
 }
+
+
+

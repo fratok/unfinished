@@ -23,4 +23,10 @@ class ComponentModule {
     fun provideItemApi(retrofit: Retrofit): ItemApi {
         return retrofit.create(ItemApi::class.java)
     }
+
+    @Provides
+    @Singleton
+    fun provideItemsRepository(itemApi: ItemApi): ItemsRepository {
+        return ItemsRepository(itemApi)
+    }
 }

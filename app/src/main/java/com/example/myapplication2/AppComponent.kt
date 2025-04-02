@@ -14,7 +14,8 @@ import javax.inject.Singleton
     AndroidInjectionModule::class,
     ComponentModule::class,
     ActivityModule::class,
-    AuthModule::class
+    AuthModule::class,
+    ContextModule::class
 ])
 @Singleton
 interface AppComponent : AndroidInjector<DaggerApplication> {
@@ -22,6 +23,8 @@ interface AppComponent : AndroidInjector<DaggerApplication> {
     override fun inject(instance: DaggerApplication)
 
     fun inject(app: App)
+    fun inject(fragment: ItemsFragment)
+    fun inject(activity: Main)
 
     @Component.Builder
     interface Builder {

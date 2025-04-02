@@ -11,6 +11,8 @@ class AuthModule {
     @Provides
     @Singleton
     fun provideDbHelper(context: Context): DbHelper {
-        return DbHelper(context, null)
+        return DbHelper(
+            context = context,
+            factory = null)
     }
 }

@@ -29,6 +29,7 @@ class AuthFragment : BaseFragment<FragmentAuthBinding>() {
     override fun onAttach(context: Context) {
         AndroidSupportInjection.inject(this)
         super.onAttach(context)
+
     }
 
     override fun inflateViewBinding( inflater: LayoutInflater, container: ViewGroup?
@@ -42,7 +43,7 @@ class AuthFragment : BaseFragment<FragmentAuthBinding>() {
     private fun setupViews() {
         with(binding) {
             linkToReg.setOnClickListener {
-                findNavController().navigate(R.id.action_mainActivity_to_itemsActivity2)
+                findNavController().navigate(R.id.action_authFragment_to_itemsFragment2)
             }
 
             this.buttonAuth.setOnClickListener {
@@ -74,7 +75,7 @@ class AuthFragment : BaseFragment<FragmentAuthBinding>() {
     }
 
     private fun navigateToItems() {
-        findNavController().navigate(R.id.action_mainActivity_to_itemsActivity2)
+        findNavController().navigate(R.id.action_authFragment_to_itemsFragment2)
     }
 
     private fun showToast(message: String) {

@@ -1,43 +1,24 @@
 package com.example.myapplication2
 
+import ErrorDialogFragment
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dagger.android.AndroidInjection
-import dagger.android.DaggerActivity
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.ui.setupActionBarWithNavController
+import kotlinx.coroutines.launch
 import javax.inject.Inject
-//fun retrofitRequest(scope: CoroutineScope, itemApi: ItemApi,  onSuccess: (List<Item>) -> Unit, onFailure: (String) -> Unit,) {
-//    scope.launch(Dispatchers.IO){
-//
-//        try {
-//            Log.d("TAG", "Запрос на получение элементов")
-//            val response = itemApi.getItems()
-//            Log.d("TAG", "ItemListApi: $response" )
-//            if (response.isSuccessful) {
-//                val items = response.body() // получаем тело ответа
-//                if (items != null) {
-//                    Log.d("TAG", "Response body: $items")
-//                    onSuccess(items)
-//                } else {
-//                    onFailure("Response body is null")
-//                }
-//            } else {
-//                Log.e("TAG", "Ошибка ответа: ${response.message()}")
-//                onFailure("Ошибка: Не удалось получить данные с сервера. Пожалуйста, попробуйте позже.")
-//            }
-//        } catch (e: Exception) {
-//            Log.e("TAG", "Ошибка сети: ${e.message}")
-//            onFailure("Ошибка подключения. Проверьте ваше интернет-соединение и попробуйте снова.")
-//        }
-//    }
-//}
 
-class Main : DaggerActivity(), DialogListener {
+
+
+class Main : AppCompatActivity(), DialogListener {
 
     @Inject
-    lateinit var itemApi: ItemApi
+    lateinit var itemsRepository: ItemsRepository
 
 
     private lateinit var loadingIndicator: View
@@ -45,9 +26,10 @@ class Main : DaggerActivity(), DialogListener {
     private lateinit var adapter: ItemsAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
+        AndroidInjection.inject(this)
         setContentView(R.layout.fragment_items2)
+
 
         loadingIndicator = findViewById(R.id.loadingIndicator)
         recyclerView = findViewById(R.id.itemsList)
@@ -56,36 +38,39 @@ class Main : DaggerActivity(), DialogListener {
     }
 
     private fun fetchItems() {
-        loadingIndicator.visibility = View.VISIBLE
-//        retrofitRequest(lifecycleScope,
-//            { items ->
-//                runOnUiThread {
-//                    loadingIndicator.visibility = View.GONE
-//                    val successDialog = ErrorDialogFragment("Данные загружены успешно!")
-//                    successDialog.show(supportFragmentManager, "SuccessDialog")
-//                    setupRecyclerView(items)
-//                }
-//            },
-//            { errorMessage ->
-//                runOnUiThread {
-//                    loadingIndicator.visibility = View.GONE
-//                    val errorDialog = ErrorDialogFragment(errorMessage)
-//                    errorDialog.show(supportFragmentManager, "ErrorDialog")
-//                }
-//            }
-//        )
+        lifecycleScope.launch {
+            loadingIndicator.visibility = View.VISIBLE
+            try {
+                val items = itemsRepository.getItems()
+                setupRecyclerView(items)
+            } catch (e: Exception) {
+                showErrorDialog(e.message ?: "Ошибка загрузки")
+            } finally {
+                loadingIndicator.visibility = View.GONE
+            }
+        }
     }
 
     private fun setupRecyclerView(items: List<Item>) {
-        adapter = ItemsAdapter(items, this)
+        adapter = ItemsAdapter(
+            items = items,
+            onItemClick = { item ->
+                Toast.makeText(this@Main, "Выбран: ${item.name}", Toast.LENGTH_SHORT).show()
+            },
+            context = this
+        )
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(this)
+    }
+
+    private fun showErrorDialog(message: String) {
+        val errorDialog = ErrorDialogFragment(message)
+        errorDialog.show(supportFragmentManager, "ErrorDialogTitle")
     }
 
     override fun onDialogDismissed() {
         Toast.makeText(this, "Диалог закрыт", Toast.LENGTH_SHORT).show()
     }
 }
-
 
 
