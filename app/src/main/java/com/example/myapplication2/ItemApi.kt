@@ -6,6 +6,6 @@ import kotlinx.serialization.SerialName
 import com.example.myapplication2.ItemApi
 
 interface ItemApi {
-    @GET("/JSON/shopping_list.json")
+    @GET("JSON/shopping_list.json")
     suspend fun getItems(): Response<List<Item>>
 }

@@ -3,20 +3,37 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/testFragment">
+    app:startDestination="@id/authFragment">
 
     <fragment
-        android:id="@+id/testFragment"
-        android:name="com.example.myapplication2.TestFragment"
-        android:label="fragment_test"
-        tools:layout="@layout/fragment_test" >
-        <action
-            android:id="@+id/action_testFragment_to_test2Fragment"
-            app:destination="@id/test2Fragment" />
+        android:id="@+id/authFragment"
+        android:name="com.example.myapplication2.AuthFragment"
+        android:label="authFragment"
+        tools:layout="@layout/fragment_auth">
+    <action
+            android:id="@+id/action_authFragment_to_itemsFragment2"
+            app:destination="@id/itemsFragment2" />
     </fragment>
+
     <fragment
-        android:id="@+id/test2Fragment"
-        android:name="com.example.myapplication2.Test2Fragment"
-        android:label="fragment_test2"
-        tools:layout="@layout/fragment_test2" />
+        android:id="@+id/itemsFragment2"
+        android:name="com.example.myapplication2.ItemsFragment"
+        android:label="activity_items2"
+        tools:layout="@layout/fragment_items2">
+    <action
+        android:id="@+id/action_itemsFragment2_to_itemFragment2"
+        app:destination="@id/itemFragment2" />
+</fragment>
+
+    <fragment
+        android:id="@+id/itemFragment2"
+        android:name="com.example.myapplication2.ItemFragment"
+        android:label="activity_item2"
+        tools:layout="@layout/fragment_item2">
+    <action
+        android:id="@+id/action_itemsFragment2_to_itemFragment2"
+        app:destination="@id/itemsFragment2" />
+    </fragment>
 </navigation>
+
+

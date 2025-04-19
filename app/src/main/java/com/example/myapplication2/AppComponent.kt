@@ -1,21 +1,36 @@
 package com.example.myapplication2
 
+import android.app.Application
 import dagger.BindsInstance
 import dagger.Component
+import dagger.android.AndroidInjectionModule
 import dagger.android.AndroidInjector
 import dagger.android.DaggerApplication
-import javax.inject.Inject
+import dagger.android.support.AndroidSupportInjectionModule
 import javax.inject.Singleton
 
+@Component(modules = [
+    AndroidSupportInjectionModule::class,
+    AndroidInjectionModule::class,
+    ComponentModule::class,
+    ActivityModule::class,
+    AuthModule::class,
+    ContextModule::class
+])
 @Singleton
-@Component(modules = [TestModule])
-interface AppComponent: AndroidInjector<DaggerApplication> {
-    fun inject(application: Application)
+interface AppComponent : AndroidInjector<DaggerApplication> {
+
+    override fun inject(instance: DaggerApplication)
+
+    fun inject(app: App)
+    fun inject(fragment: ItemsFragment)
+    fun inject(activity: MainActivity)
+
     @Component.Builder
-    interface Builder{
+    interface Builder {
         @BindsInstance
         fun application(application: Application): Builder
-        fun builder(): AppComponent
-
+        fun build(): AppComponent
     }
 }
+

@@ -10,29 +10,14 @@ import androidx.viewbinding.ViewBinding
 import com.example.myapplication2.databinding.FragmentTestBinding
 
 class TestFragment : BaseFragment<FragmentTestBinding>() {
-
-    companion object {
-        fun newInstance() = TestFragment()
-    }
-
-    private val viewModel: TestViewModel by viewModels()
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        // TODO: Use the ViewModel
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        return inflater.inflate(R.layout.fragment_test, container, false)
-    }
-
+    val viewModel: TestViewModel by viewModels<TestViewModel>{  viewModelFactory }
     override fun inflateViewBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
-    ): FragmentTestBinding = FragmentTestBinding.inflate(inflater, container,false)
+    ): FragmentTestBinding = FragmentTestBinding.inflate(inflater, container, false)
+
 
 }
+
+
+
