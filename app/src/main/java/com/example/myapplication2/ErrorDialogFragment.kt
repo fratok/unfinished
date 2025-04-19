@@ -26,14 +26,11 @@ class ErrorDialogFragment(private val errorMessage: String) : AppCompatDialogFra
             requestWindowFeature(Window.FEATURE_NO_TITLE)
             setContentView(R.layout.error)
 
-            // Делаем фон прозрачным для круглых углов
             window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
-            // Настройка текста
             val errorText = findViewById<TextView>(R.id.error_title)
-            errorText.text = errorMessage // Используем переданное сообщение
+            errorText.text = errorMessage
 
-            // Настройка кнопки
             findViewById<Button>(R.id.button_understood).setOnClickListener {
                 dismiss()
             }

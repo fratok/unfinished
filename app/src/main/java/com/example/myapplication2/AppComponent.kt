@@ -24,7 +24,7 @@ interface AppComponent : AndroidInjector<DaggerApplication> {
 
     fun inject(app: App)
     fun inject(fragment: ItemsFragment)
-    fun inject(activity: Main)
+    fun inject(activity: MainActivity)
 
     @Component.Builder
     interface Builder {
@@ -33,3 +33,4 @@ interface AppComponent : AndroidInjector<DaggerApplication> {
         fun build(): AppComponent
     }
 }
+

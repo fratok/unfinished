@@ -38,10 +38,4 @@
         android:text="Купить"
         android:textColor="#0D0A12" />
 
-    <Button
-        android:id="@+id/back"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Button" />
-
 </LinearLayout>

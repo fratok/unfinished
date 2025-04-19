@@ -25,7 +25,6 @@ class AuthFragment : BaseFragment<FragmentAuthBinding>() {
     @set:Inject
     lateinit var dbHelper: DbHelper
 
-
     override fun onAttach(context: Context) {
         AndroidSupportInjection.inject(this)
         super.onAttach(context)
@@ -39,13 +38,11 @@ class AuthFragment : BaseFragment<FragmentAuthBinding>() {
         super.onViewCreated(view, savedInstanceState)
         setupViews()
     }
-
     private fun setupViews() {
         with(binding) {
             linkToReg.setOnClickListener {
                 findNavController().navigate(R.id.action_authFragment_to_itemsFragment2)
             }
-
             this.buttonAuth.setOnClickListener {
                 val login = userLoginAuth.text.toString().trim()
                 val pass = userPassAuth.text.toString().trim()
@@ -53,35 +50,29 @@ class AuthFragment : BaseFragment<FragmentAuthBinding>() {
                 when {
                     login.isEmpty() || pass.isEmpty() ->
                         showToast("Заполните все поля")
-
                     dbHelper.getUser(login, pass) -> {
                         showToast("Авторизация успешна")
                         clearFields()
                         navigateToItems()
                     }
-
                     else -> showToast("Ошибка авторизации")
 
                 }
             }
         }
     }
-
     private fun clearFields() {
         with(binding) {
             this.userLoginAuth.text?.clear()
             this.userPassAuth.text?.clear()
         }
     }
-
     private fun navigateToItems() {
         findNavController().navigate(R.id.action_authFragment_to_itemsFragment2)
     }
-
     private fun showToast(message: String) {
         Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
     }
-
     companion object {
         const val TAG = "AuthFragment"
     }
